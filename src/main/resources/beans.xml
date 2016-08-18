@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jee="http://www.springframework.org/schema/jee"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/jee 
+        http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+	<context:component-scan base-package="spring.dao"></context:component-scan>
+	
+	<!-- Import property file -->
+	<context:property-placeholder location="classpath:resources.properties" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${c3p0.driverClass}"></property>
+		<property name="jdbcUrl" value="${c3p0.url}"></property>
+		<property name="user" value="${c3p0.user}"></property>
+		<property name="password" value="${c3p0.password}"></property>
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}"></property>
+
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}"></property>
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}"></property>
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}"></property>
+		<property name="minPoolSize" value="${c3p0.minPoolSize}"></property>
+
+		<property name="acquireRetryDelay" value="1000"></property>
+		<property name="acquireRetryAttempts" value="60"></property>
+		<property name="breakAfterAcquireFailure" value="false"></property>
+	</bean>
+	
+	<!-- config JdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		abstract="false" lazy-init="false" autowire="default">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<!-- config NamedParameterJdbcTemplate -->
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate"
+		abstract="false" lazy-init="false" autowire="default">
+		<constructor-arg ref="dataSource"></constructor-arg>
+	</bean>
+
+
+
+
+	<!-- <bean class="spittr.config.MyConfig" /> -->
+
+	<!-- JNDI DS -->
+	<!-- <jee:jndi-lookup id="dataSource" jndi-name="jdbc/SpitterDS" resource-ref="true" 
+		/> -->
+
+	<!-- WEB configuration -->
+	<!-- <mvc:annotation-driven /> <bean id="viewResolve" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+		p:prefix="WEB-INF/views" p:suffix=".jsp" p:viewClass="org.springframework.web.servlet.view.JstlView" 
+		/> -->
+
+</beans>
