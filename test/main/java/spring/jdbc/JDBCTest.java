@@ -14,7 +14,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import spring.pojo.Employee;
 
@@ -102,13 +104,14 @@ public class JDBCTest {
 		namedParameterJdbcTemplate.update(sql, paramMap);
 	}
 	
-//	@Test
-//	public void testNamedParameterJdbcTemplate2() throws SQLException {
-//		String sql = "insert into employees(last_name,email,dept_id) values(:lastName,:email,:deptid)";
-//		Map<String,Object> paramMap = new HashMap<>();
-//		paramMap.put("ln", "FF");
-//		paramMap.put("email", "ff@163.com");
-//		paramMap.put("deptid", 2);
-//		namedParameterJdbcTemplate.update(sql, paramSource);
-//	}
+	@Test
+	public void testNamedParameterJdbcTemplate2() throws SQLException {
+		String sql = "insert into employees(last_name,email,dept_id) values(:lastName,:email,:deptId)";
+		Employee emp = new Employee();
+		emp.setLastName("XYZ");
+		emp.setEmail("xyz@163.com");
+		emp.setDeptId(3);
+		SqlParameterSource paramSource = new BeanPropertySqlParameterSource(emp);
+		namedParameterJdbcTemplate.update(sql, paramSource);
+	}
 }
