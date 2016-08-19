@@ -20,3 +20,27 @@ insert into employees values(null,'Nike','Nike@163.com',3);
 insert into employees values(null,'Rose','Rose@163.com',3);
 insert into employees values(null,'ATGUIGU','ATGUIGU@163.com',2);
 
+============tx test================
+drop table if exists book;
+create table book(
+isbn varchar(50) primary key,
+book_name varchar(100),
+price int);
+
+drop table if exists book_stock;
+create table book_stock(
+isbn varchar(50) primary key,
+stock int,
+check(stock>0));
+
+drop table if exists account;
+create table account(
+username varchar(50) primary key,
+balance int,
+check(balance>0));
+
+insert into book values('1001','Java',100);
+insert into book values('1002','Oracle',70);
+insert into book_stock values('1001',0);
+insert into book_stock values('1002',8);
+insert into account values('AA',100);
