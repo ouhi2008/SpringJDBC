@@ -12,8 +12,9 @@ public class BookShopServiceImpl implements BookShopService {
 	@Autowired
 	private BookShopDao bookShopDao;
 	
-	//Default propagation is REQUIRED
-	@Transactional(propagation=Propagation.REQUIRED)
+	//Default propagation is REQUIRED : tx1 start -> tx1 end
+	//REQUIRES_NEW :  tx1 start-> tx2 start -> tx2 end ->tx1 end
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Override
 	public void purchase(String username, String isbn) {
 		int price = bookShopDao.findbookPriceByIsbn(isbn);
