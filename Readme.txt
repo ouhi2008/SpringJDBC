@@ -44,3 +44,5 @@ insert into book values('1002','Oracle',70);
 insert into book_stock values('1001',0);
 insert into book_stock values('1002',8);
 insert into account values('AA',100);
+
+insert into account values('Tom',60);
