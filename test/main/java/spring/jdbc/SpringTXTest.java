@@ -16,26 +16,12 @@ public class SpringTXTest {
 	private BookShopService bookShopService =null;
 	private Cashier cashier =null;
 	{
-		ctx = new ClassPathXmlApplicationContext("beans.xml");
+		ctx = new ClassPathXmlApplicationContext("beans-tx.xml");
 		bookShopDao = (BookShopDao)ctx.getBean("bookShopDao");
 		bookShopService = (BookShopService)ctx.getBean("bookShopService");
 		cashier = (Cashier)ctx.getBean(Cashier.class);
 	}
 	
-	@Test
-	public void testFindbookPriceByIsbn() {
-		System.out.println(bookShopDao.findbookPriceByIsbn("1001"));
-	}
-
-	@Test
-	public void testUpdateBookStock() {
-		bookShopDao.updateBookStock("1001");
-	}
-	
-	@Test
-	public void testUpdateUserAccount() {
-		bookShopDao.updateUserAccount("AA", 100);
-	}
 	
 	@Test
 	public void testPurchase() {

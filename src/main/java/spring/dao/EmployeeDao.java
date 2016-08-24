@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import spring.pojo.Employee;
 
-@Repository
 public class EmployeeDao {
 	
-	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	public Employee get(Integer id){

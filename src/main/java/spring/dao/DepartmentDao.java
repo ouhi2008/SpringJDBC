@@ -10,10 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import spring.pojo.Department;
 
-@Repository
 public class DepartmentDao extends JdbcDaoSupport {
 
-	@Autowired
 	public void setDataSource2(DataSource dataSource){
 		setDataSource(dataSource);
 	}

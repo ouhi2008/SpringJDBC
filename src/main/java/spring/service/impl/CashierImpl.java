@@ -1,18 +1,18 @@
-package spring.service;
+package spring.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import spring.service.BookShopService;
+import spring.service.Cashier;
 
-@Service("cashier")
 public class CashierImpl implements Cashier {
 
-	@Autowired
 	private BookShopService bookShopService;
 	
-	@Transactional
+	public void setBookShopService(BookShopService bookShopService){
+		this.bookShopService=bookShopService;
+	}
+	
 	@Override
 	public void checkout(String username, List<String> isbns) {
 		for(String isbn:isbns){
